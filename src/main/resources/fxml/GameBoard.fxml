@@ -70,7 +70,10 @@
              </font>
          </Label>
 
-         <ImageView fx:id="tableCard" fitHeight="176.0" fitWidth="115.0" layoutX="493.0" layoutY="157.0" />
+         <ImageView fx:id="tableCard" fitHeight="176.0" fitWidth="115.0" layoutX="493.0" layoutY="157.0">
+         <image>
+            <Image url="@../images/joker.jpg" />
+         </image></ImageView>
 
          <!-- Etiquetas para mostrar la última carta jugada por el jugador y la computadora -->
          <Label fx:id="lastPlayerCardLabel" layoutX="551.0" layoutY="347.0" text="Última carta jugador: " textFill="white" />

@@ -24,7 +24,7 @@ public class Deck {
 
     // Método Factory para crear una carta
     private Card createCard(String rank, String suit) {
-        return new Card(rank, suit); // Este es un método básico, pero se puede extender en el futuro
+        return new Card(rank, suit);
     }
 
     /**

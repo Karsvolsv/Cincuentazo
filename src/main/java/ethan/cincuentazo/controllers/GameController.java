@@ -20,6 +20,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Controlador de la vista del juego Cincuentazo.
@@ -169,6 +170,8 @@ public class GameController {
                             lastComputerCardLabel.setText("Última carta computadora: " + lastComputerCard.getName());
                         }
 
+                        // Actualizar la carta en la mesa
+                        currentTableCard = game.getLastComputerCard();
                         updateTableCard();
                         updateUI();
 
@@ -182,6 +185,7 @@ public class GameController {
             }).start();  // Inicia el hilo
         }
     }
+
 
     /**
      * Actualiza la carta en la mesa en la interfaz gráfica.
@@ -236,25 +240,45 @@ public class GameController {
     private void updateCards(Player player, ImageView card1, ImageView card2, ImageView card3, ImageView card4) {
         List<Card> cards = player.getHand();
 
-        for (int i = 0; i < cards.size(); i++) {
-            try {
-                Image image = new Image(getClass().getResourceAsStream("/images/" + cards.get(i).getImageName() + ".png"));
-                switch (i) {
-                    case 0: card1.setImage(image); break;
-                    case 1: card2.setImage(image); break;
-                    case 2: card3.setImage(image); break;
-                    case 3: card4.setImage(image); break;
+        // Asegurarse de que la computadora siempre tenga 4 cartas visibles
+        for (int i = 0; i < 4; i++) {
+            ImageView currentCardView = null;
+
+            // Dependiendo del índice, asignamos la carta correspondiente
+            switch (i) {
+                case 0: currentCardView = card1; break;
+                case 1: currentCardView = card2; break;
+                case 2: currentCardView = card3; break;
+                case 3: currentCardView = card4; break;
+            }
+
+            // Si el jugador tiene suficientes cartas, actualizamos la imagen
+            if (i < cards.size()) {
+                try {
+                    // Intentamos cargar la imagen de la carta actual
+                    Image image = new Image(getClass().getResourceAsStream("/images/" + cards.get(i).getImageName() + ".png"));
+                    currentCardView.setImage(image);  // Actualizamos la imagen de la carta
+                } catch (NullPointerException e) {
+                    // Si no se encuentra la imagen, mostramos un mensaje de error
+                    System.out.println("Imagen no encontrada para: " + cards.get(i).getImageName());
                 }
-            } catch (NullPointerException e) {
-                System.out.println("Imagen no encontrada para: " + cards.get(i).getImageName());
+            } else {
+                // Si no hay más cartas, seleccionamos una carta aleatoria
+                Random rand = new Random();
+                int randomIndex = rand.nextInt(cards.size());  // Generamos un índice aleatorio
+
+                // Obtenemos la carta aleatoria
+                Card randomCard = cards.get(randomIndex);
+                try {
+                    // Intentamos cargar la imagen de la carta aleatoria
+                    Image image = new Image(getClass().getResourceAsStream("/images/" + randomCard.getImageName() + ".png"));
+                    currentCardView.setImage(image);  // Actualizamos la imagen con la carta aleatoria
+                } catch (NullPointerException e) {
+                    // Si no se encuentra la imagen, mostramos un mensaje de error
+                    System.out.println("Imagen no encontrada para: " + randomCard.getImageName());
+                }
             }
         }
-
-        // Si no hay suficientes cartas, se limpia la imagen correspondiente
-        if (cards.size() < 1) card1.setImage(null);
-        if (cards.size() < 2) card2.setImage(null);
-        if (cards.size() < 3) card3.setImage(null);
-        if (cards.size() < 4) card4.setImage(null);
     }
 
     /**
