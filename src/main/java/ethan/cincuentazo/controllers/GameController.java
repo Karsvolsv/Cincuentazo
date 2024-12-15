@@ -18,7 +18,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
 
@@ -336,5 +335,4 @@ public class GameController {
             }
         });
     }
-
 }

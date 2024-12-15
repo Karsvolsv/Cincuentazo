@@ -4,22 +4,27 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Representa el mazo de cartas del juego.
+ * Se encarga de la creación, barajado, y distribución de cartas.
+ */
 public class Deck {
     private ArrayList<Card> cartas;
 
-    /**
-     * Constructor que crea un mazo estándar de 52 cartas.
-     * El mazo incluye 4 palos (Corazones, Diamantes, Tréboles, Picas)
-     * y 13 rangos (2 al 10, J, Q, K, A).
-     */
+    // Constructor que crea un mazo estándar de 52 cartas (sin comodines).
     public Deck() {
         cartas = new ArrayList<>();
-        // Crear un mazo estándar con 52 cartas
+        // Patron Creacional
         for (String suit : new String[]{"Corazones", "Diamantes", "Treboles", "Picas"}) {
             for (String rank : new String[]{"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"}) {
-                cartas.add(new Card(rank, suit));
+                cartas.add(createCard(rank, suit)); // Crear la carta usando el Factory Method
             }
         }
+    }
+
+    // Método Factory para crear una carta
+    private Card createCard(String rank, String suit) {
+        return new Card(rank, suit); // Este es un método básico, pero se puede extender en el futuro
     }
 
     /**
@@ -33,16 +38,16 @@ public class Deck {
     /**
      * Saca una carta del mazo.
      * Si el mazo tiene cartas disponibles, se saca la última carta y se devuelve.
-     * Si el mazo está vacío, se muestra un mensaje y se devuelve `null`.
+     * Si el mazo está vacío, lanza una excepción.
      *
-     * @return La carta que se ha sacado del mazo o `null` si el mazo está vacío.
+     * @return La carta que se ha sacado del mazo.
+     * @throws IllegalStateException Si el mazo está vacío.
      */
     public Card drawCard() {
-        if (cartas.size() > 0) {
-            return cartas.remove(cartas.size() - 1); // Saca la última carta del mazo
+        if (cartas.isEmpty()) {
+            throw new IllegalStateException("El mazo está vacío. No se pueden sacar más cartas.");
         }
-        System.out.println("El mazo está vacío.");
-        return null; // Si no hay cartas, retorna null
+        return cartas.remove(cartas.size() - 1); // Saca la última carta del mazo
     }
 
     /**
@@ -88,5 +93,14 @@ public class Deck {
         for (Card card : cartas) {
             System.out.println(card.toString());
         }
+    }
+
+    /**
+     * Devuelve el mazo completo de cartas. Puede ser útil para obtener una referencia directa a todas las cartas.
+     *
+     * @return La lista completa de cartas del mazo.
+     */
+    public List<Card> getDeck() {
+        return Collections.unmodifiableList(cartas); // Devuelve una lista no modificable
     }
 }
