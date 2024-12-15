@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<!--
+    Vista principal del juego en la aplicación Cincuentazo.
+    Este archivo FXML describe la interfaz gráfica del juego donde los jugadores pueden ver las cartas, los puntajes, y tomar acciones durante el juego.
+
+    Controlador asociado: ethan.cincuentazo.controllers.JuegoController
+
+    Elementos clave de la interfaz:
+    - Fondo de pantalla.
+    - Muestra del puntaje de la mesa.
+    - Botón para terminar el juego.
+    - Cartas del jugador y de la computadora.
+    - Visualización de la última carta jugada por cada participante.
+-->
+
+<AnchorPane prefHeight="522.0" prefWidth="808.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ethan.cincuentazo.controllers.GameController">
+    <children>
+        <!-- Fondo de la ventana de juego -->
+        <ImageView fitHeight="533.0" fitWidth="827.0" pickOnBounds="true">
+            <image>
+                <Image url="@../images/fondo_menu.png" />
+            </image>
+        </ImageView>
+
+        <!-- Sección para los puntajes -->
+        <VBox alignment="CENTER" layoutX="320.0" layoutY="20.0" spacing="10" />
+
+
+        <!-- Sección para los botones de acción -->
+        <HBox alignment="CENTER" layoutX="345.0" layoutY="448.0" spacing="20" style="-fx-padding: 20;">
+            <Button fx:id="endGameButton" onAction="#endGameButton" text="Terminar Juego" />
+        </HBox>
+
+        <!-- Sección para las cartas del jugador -->
+        <!-- Section for the player's cards -->
+        <VBox alignment="CENTER" layoutX="28.0" layoutY="62.0" prefHeight="151.0" prefWidth="331.0" spacing="10">
+            <Label style="-fx-font-size: 15px; -fx-text-fill: white;" text="Player's Cards" />
+            <HBox alignment="CENTER" spacing="10">
+                <ImageView fx:id="playerCard1" fitHeight="118.0" fitWidth="89.0" onMouseClicked="#selectPlayerCard" pickOnBounds="true" />
+                <ImageView fx:id="playerCard2" fitHeight="118.0" fitWidth="89.0" onMouseClicked="#selectPlayerCard" pickOnBounds="true" />
+                <ImageView fx:id="playerCard3" fitHeight="118.0" fitWidth="89.0" onMouseClicked="#selectPlayerCard" pickOnBounds="true" />
+                <ImageView fx:id="playerCard4" fitHeight="118.0" fitWidth="89.0" onMouseClicked="#selectPlayerCard" pickOnBounds="true" />
+            </HBox>
+        </VBox>
+
+
+        <!-- Sección para las cartas de la computadora -->
+        <VBox alignment="CENTER" layoutX="28.0" layoutY="249.0" prefHeight="168.0" prefWidth="352.0" spacing="10">
+            <Label style="-fx-font-size: 16px; -fx-text-fill: white;" text="Cartas de la Computadora" />
+            <HBox alignment="CENTER" spacing="10">
+                <ImageView fx:id="computerCard1" fitHeight="118.0" fitWidth="89.0" />
+                <ImageView fx:id="computerCard2" fitHeight="118.0" fitWidth="89.0" />
+                <ImageView fx:id="computerCard3" fitHeight="118.0" fitWidth="89.0" />
+                <ImageView fx:id="computerCard4" fitHeight="118.0" fitWidth="89.0" />
+            </HBox>
+        </VBox>
+         <Label fx:id="tableSumLabel" layoutX="532.0" layoutY="111.0" style="-fx-font-size: 18px; -fx-text-fill: white;" text="Suma de la mesa: 0">
+             <font>
+                 <Font size="29.0" />
+             </font>
+         </Label>
+
+         <ImageView fx:id="tableCard" fitHeight="176.0" fitWidth="115.0" layoutX="493.0" layoutY="157.0" />
+
+         <!-- Etiquetas para mostrar la última carta jugada por el jugador y la computadora -->
+         <Label fx:id="lastPlayerCardLabel" layoutX="551.0" layoutY="347.0" text="Última carta jugador: " textFill="white" />
+         <Label fx:id="lastComputerCardLabel" layoutX="536.0" layoutY="370.0" text="Última carta computadora: " textFill="white" />
+      <ImageView fx:id="Back" fitHeight="176.0" fitWidth="115.0" layoutX="627.0" layoutY="157.0">
+         <image>
+            <Image url="@../images/back.png" />
+         </image>
+      </ImageView>
+    </children>
+</AnchorPane>
